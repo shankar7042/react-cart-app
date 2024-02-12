@@ -35,9 +35,11 @@ const Navigation = () => {
               <circle cx="19" cy="21" r="1" />
               <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
             </svg>
-            <span className="text-xs absolute p-1 rounded-full bg-green-500 -right-3 -top-2">
-              {cartItemsCount}
-            </span>
+            {cartItemsCount !== 0 && (
+              <span className="text-xs w-5 h-5 absolute p-2 text-white flex justify-center items-center text-center rounded-full bg-green-500 -right-1/2 -top-1/2">
+                {cartItemsCount}
+              </span>
+            )}
           </Link>
         </li>
       </ul>

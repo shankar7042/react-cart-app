@@ -17,7 +17,7 @@ const productDataAtom = atom((get) => {
 
 export const cartAtom = atom<Cart[]>([]);
 
-type ProductCart = Product & Omit<Cart, "productId">;
+export type ProductCart = Product & Omit<Cart, "productId">;
 
 export const getCartAtom = atom<ProductCart[]>((get) => {
   const products = get(productDataAtom);
@@ -52,3 +52,21 @@ export const setCartAtom = atom(null, (get, set, productId: number) => {
 export const cartItemsCountAtom = atom((get) =>
   get(cartAtom).reduce((acc, curr) => acc + curr.quantity, 0)
 );
+
+export const orderSummaryAtom = atom<{
+  subtotal: number;
+  shippingEstimate: number;
+  taxEstimate: number;
+  orderTotal: number;
+}>((get) => {
+  const productCart = get(getCartAtom);
+  const subtotal = productCart.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity,
+    0
+  );
+  const shippingEstimate = 40;
+  const taxPercentage = 15 / 100;
+  const taxEstimate = subtotal * taxPercentage;
+  const orderTotal = subtotal + shippingEstimate + taxEstimate;
+  return { subtotal, shippingEstimate, taxEstimate, orderTotal };
+});

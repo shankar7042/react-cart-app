@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { getCartAtom, productsAtom, setCartAtom } from "../atoms";
+import { productsAtom, setCartAtom } from "../atoms";
 import { Product } from "../types";
 import { formatCurrency } from "../utils";
 
@@ -48,9 +48,6 @@ const Product = ({ product }: ProductProps) => {
 
 function ProductPage() {
   const products = useAtomValue(productsAtom);
-
-  const cartData = useAtomValue(getCartAtom);
-  console.log({ cartData });
 
   if (products.state === "loading") {
     return <div>Loading Products...</div>;
